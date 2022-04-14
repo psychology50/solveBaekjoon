@@ -42,7 +42,6 @@ def check_ssc(stack:list, graph, visited):
     while stack:
         scc = []
         node = stack.pop()
-        print(node)
         if visited[node] == 0:
             reverse_dfs(node, graph, visited, scc)
             result.append(sorted(scc))
