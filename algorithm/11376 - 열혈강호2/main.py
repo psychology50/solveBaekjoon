@@ -9,7 +9,7 @@ def bfs():
     queue = deque()
 
     for node in range(1, n+1):
-        if aMatch[node] == 0: # 매칭이 되어있지 않다면 level 0 시작
+        if len(aMatch[node]) < 2: # 매칭 개수가 2개가 아니면 level 0으로 시작
             level[node] = 0
             queue.append(node)
         else:
@@ -30,7 +30,7 @@ def dfs(now):
     if now:
         for node in adj[now]: # Agroup의 now번 째 노드와 연결된 Bgroup의 node중에 매칭이 안 되었거나,
             if level[bMatch[node]] == level[now] + 1 and dfs(bMatch[node]): # node에 연결된 now'과 now 레벨 차가 1밖에 안 나거나,
-                aMatch[now] = node # node에 연결된 now'이 매칭되지 않았거나, level이 1 차이 나는 경우에
+                aMatch[now].append(node) # node에 연결된 now'이 매칭되지 않았거나, level이 1 차이 나는 경우에
                 bMatch[node] = now
                 return 1
         level[now] = INF
@@ -43,9 +43,10 @@ def solution():
 
     while bfs():
         for idx in range(1, n+1):
-            if aMatch[idx] == 0:
+            if len(aMatch[idx]) < 2: # 매칭 개수가 2개 안 넘으면
                 cnt += dfs(idx)
-
+            if len(aMatch[idx]) < 2:
+                cnt += dfs(idx)
     print(cnt)
 
 if __name__ == "__main__":
@@ -54,7 +55,7 @@ if __name__ == "__main__":
     for idx in range(1, n+1):
         adj.append(list(map(int, input().split()))[1:])
 
-    aMatch = [0 for _ in range(n+1)] # group B와 연결된 정점 정보
+    aMatch = [[] for _ in range(n+1)] # group B와 연결된 정점 정보
     bMatch = [0 for _ in range(m+1)] # group A와 연결된 정점 정보
 
     level = [INF for _ in range(n+1)] # group A의 각 정점의 level
