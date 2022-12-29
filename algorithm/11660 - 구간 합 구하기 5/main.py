@@ -12,7 +12,7 @@ def solution():
         print(result)
 '''
 
-# time error ... dfs의 시간 복잡도는 O(N). 알고리즘의 문제가 아니라면?
+# time error ... bfs의 시간 복잡도는 O(N). 알고리즘의 문제가 아니라면?
 # 반복 횟수가 m이라서 문제. 값을 저장해야 하는 dp 문제였다.
 
 '''

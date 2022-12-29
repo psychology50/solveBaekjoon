@@ -11,22 +11,22 @@ def reverse_graph(v, graph):
             rev_graph[j].append(i)
     return rev_graph
 
-def dfs(node, graph, visited, stack:list):
+def dfs(node, graph, visited, queue:list):
     visited[node] = 1
 
     for next_node in graph[node]:
         if visited[next_node] == 0:
-            #stack.append(next_node)
-            dfs(next_node, graph, visited, stack)
-    stack.append(node)
+            #queue.append(next_node)
+            dfs(next_node, graph, visited, queue)
+    queue.append(node)
 
-def make_stack(v, graph, visited):
-    stack = []
+def make_queue(v, graph, visited):
+    queue = []
 
     for node in range(1, v+1):
         if visited[node] == 0:
-            dfs(node, graph, visited, stack)
-    return stack
+            dfs(node, graph, visited, queue)
+    return queue
 
 def reverse_dfs(node, graph, visited, scc:list):
     visited[node] = 1
@@ -36,12 +36,12 @@ def reverse_dfs(node, graph, visited, scc:list):
         if visited[next_node] == 0:
             reverse_dfs(next_node, graph, visited, scc)
 
-def check_ssc(stack:list, graph, visited):
+def check_ssc(queue:list, graph, visited):
     cnt, result = 0, []
 
-    while stack:
+    while queue:
         scc = []
-        node = stack.pop()
+        node = queue.pop()
         if visited[node] == 0:
             reverse_dfs(node, graph, visited, scc)
             result.append(sorted(scc))
@@ -58,10 +58,10 @@ def solution():
         a, b = map(int, input().split())
         graph[a].append(b)
 
-    stack = make_stack(v, graph, visited)
+    queue = make_queue(v, graph, visited)
     graph = reverse_graph(v, graph)
     visited = [0] * (v+1)
-    cnt, result = check_ssc(stack, graph, visited)
+    cnt, result = check_ssc(queue, graph, visited)
 
     print(cnt)
     for i in result:

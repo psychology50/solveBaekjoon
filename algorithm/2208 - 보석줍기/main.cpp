@@ -16,10 +16,7 @@ int main(void) {
         cache[i] = cost;
     }
     for (int i = m-1; i < n; i++) {
-        cout << "\nidx = " << i << "\n";
-        cout << "min_value = " << min_value << ", cache[" << i - (m-1) << "] = " << cache[i-(m-1)] << "\n";
         min_value = min(min_value, cache[i - (m-1)]);
-        cout << "max_value = " << max_value << ", cache[" << i +1 << "] - min_value = " << cache[i+1] - min_value << "\n";
         max_value = max(max_value, cache[i + 1] - min_value);
     }
     cout << max_value;

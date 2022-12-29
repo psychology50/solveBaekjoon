@@ -7,7 +7,6 @@
 #define INF 2147483647
 
 using namespace std;
-using p = pair<int, int>;
 
 vector<tuple<int, int, int>> graph;
 vector<long long> Dist(MAX, INF);

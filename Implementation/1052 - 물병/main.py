@@ -11,7 +11,7 @@ def solution():
                 break
             num >>= 1
 
-        if cnt <= k:
+        if cnt <= k: # 유효해질 때까지 반복
             print(total)
             return
 

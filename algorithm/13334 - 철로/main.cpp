@@ -34,7 +34,7 @@ int main() {
 
     int cnt = 0, ans = 0;
     for (auto i : tmp) {
-        cnt -= i.second; // first - second가 d보다 작거나 같다면 second-d는 무조건 first보다 작다. 즉, cnt기준을 first가 아니라 second로 잡는다.
+        cnt -= i.second; // second - first <= d라면 second - d <= first가 성립한다.. 즉, cnt기준을 first가 아니라 second로 잡는다.
         ans = max(ans, cnt);
     }
 

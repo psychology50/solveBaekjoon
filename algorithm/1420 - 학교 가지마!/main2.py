@@ -10,7 +10,7 @@ def updateEdge(u, v, x): # u, v 정점, x 유량
     cost[u][v], cost[v][u] = x, 0
     flow[u][v], flow[v][u] = 0, 0
 
-def dfs():
+def bfs():
     result = 0
 
     while True:
@@ -55,7 +55,7 @@ def solution():
                 updateEdge(current+1, _next, INF)
                 updateEdge(_next+1, current, INF)
             current += 2
-    return print(dfs())
+    return print(bfs())
     
 if __name__ == "__main__":
     n, m = map(int, input().split())

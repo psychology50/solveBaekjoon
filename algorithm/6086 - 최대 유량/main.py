@@ -39,6 +39,7 @@ def merge_pipe(process):
 
     while True:
         parent = bfs(start, process, flow)
+
         if parent[end] == -1:
             return result
 
@@ -48,7 +49,7 @@ def merge_pipe(process):
         while idx != start:
             min_value = min(min_value, process[parent[idx]][idx] - flow[parent[idx]][idx])
             idx = parent[idx]
-
+        
         idx = end
         while idx != start:
             flow[parent[idx]][idx] += min_value

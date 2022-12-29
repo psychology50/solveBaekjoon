@@ -2,7 +2,7 @@ from collections import deque
 import sys
 input = sys.stdin.readline
 
-def dfs(n, cache, schedule):
+def bfs(n, cache, schedule):
     queue = deque()
     queue.append([0, 0])
     cache[0][0] = 0
@@ -45,7 +45,7 @@ def solution():
     else:
         schedule = list(map(int, input().split()))
 
-    dfs(n, cache, schedule)
+    bfs(n, cache, schedule)
     print(min(cache[n]))
 
 solution()

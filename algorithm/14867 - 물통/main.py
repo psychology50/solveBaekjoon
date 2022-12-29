@@ -3,7 +3,7 @@ from collections import deque
 
 input = sys.stdin.readline
 
-def dfs(a, b, c, d):
+def bfs(a, b, c, d):
     queue = deque()
     queue.append([0, 0])
     visited = [[-1]*(b+1) for _ in range(a+1)]
@@ -50,6 +50,6 @@ def dfs(a, b, c, d):
 
 def solution():
     a, b, c, d = map(int, input().split())
-    print(dfs(a, b, c, d))
+    print(bfs(a, b, c, d))
 
 solution()

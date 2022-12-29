@@ -32,6 +32,7 @@ def solution():
         c, a, b = value
         if find(a, tree) != find(b, tree):
             union(a, b, tree)
+            print(f"a: {a}, b: {b} => {tree}")
             result += c
     print(result)
 
