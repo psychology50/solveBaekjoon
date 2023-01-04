@@ -18,23 +18,15 @@ ll calc_area(int n) {
         if (idx == n) height = 0; 
         else cin >> height;
          
-        while (st.top().first > height) {
+        while (!st.empty() && st.top().first >= height) {
             tmp = st.top(); st.pop();
 
             h = tmp.first;
-            w = idx - st.top().second - 1;
+            w = (st.empty()) ? idx : idx - st.top().second - 1;
 
             max_area = max(max_area, (ll)w*h);
-            cout << "height = " << height << ", idx = " << idx << endl;
-            cout << "tmp_height = " << tmp.first << ", tmp_idx = " << tmp.second << endl;
-            cout << "prev_height = " << st.top().first << ", prev_idx = " << st.top().second << endl; 
-
-            cout << "w = " << w << ", h = " << h << endl;
-            cout << "max_area = " << max_area << endl;
-            
-            cout << endl;
         }
-        if (st.top().first < height) st.push(make_pair(height, idx));
+        st.push(make_pair(height, idx));
 
         idx++;    
     }
@@ -43,8 +35,7 @@ ll calc_area(int n) {
 }
 
 int main() {
-    ios::sync_with_stdio(false); 
-    // cin.tie(0); cout.tie(0);
+    ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
     int n; 
 
     while (true) {
