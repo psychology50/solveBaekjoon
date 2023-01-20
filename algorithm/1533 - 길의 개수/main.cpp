@@ -54,6 +54,13 @@ int main(void) {
         cache2[i][i] = 1;
     }
 
+    for (auto a : cache1) {
+        for (auto b: a) {
+            cout << b << " ";
+        }
+        cout << endl;
+    }
+
     cout << solve(cache1, cache2);
     return 0;
 }
