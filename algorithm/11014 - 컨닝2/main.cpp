@@ -9,7 +9,7 @@
 using namespace std;
 typedef tuple<int, int> tii;
 
-char map[15][15];
+char map[81][81];
 int aMatch[50], bMatch[50];
 bool visited[50];
 vector<tii> vc = {{-1,-1}, {0,-1}, {1,-1}, {-1,1}, {0,1}, {1,1}};
@@ -36,7 +36,7 @@ int main() {
         int n, m; cin >> n >> m;
         for (int i=0; i<n; i++) cin >> map[i];
 
-        int nodeNum[10][10]; 
+        int nodeNum[81][81]; 
         int A, B; A = B = 0;
         int broken = 0;
         for (int i=0; i<n; i++) for (int j=0; j<m; j++) {
