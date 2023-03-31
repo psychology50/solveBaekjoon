@@ -11,6 +11,7 @@ int main(void) {
         if (L[i] != R[i]) break;
         if (L[i] == '8') ans++;
     }
+
     cout << ans << "\n";
     return 0;
 }
