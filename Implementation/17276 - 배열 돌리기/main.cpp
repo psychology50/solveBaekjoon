@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstring>
 
 #define endl '\n'
 #define MAX 501
@@ -20,7 +21,9 @@ int main() {
         cin >> n >> d;
         for (i=0; i<n; i++) for (j=0; j<n; j++) cin >> arr[i][j]; 
 
-        cnt = (d >= 0) ? d / 45 : (d / 45) + 4;
+        memcpy(ans, arr, sizeof(arr));
+
+        cnt = (d >= 0) ? d / 45 : (d / 45) + 8;
         while(cnt--) {
             for (i=0; i<n; i++) ans[i][(n+1)/2 - 1] = arr[i][i];
             for (i=0; i<n; i++) ans[i][i] = arr[(n+1)/2 - 1][i];
