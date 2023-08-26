@@ -65,15 +65,21 @@ int bfs() {
             if (nxt_y < 0 || nxt_y >= N || nxt_x < 0 || nxt_x >= M) continue; // 1. 범위 밖 예외 처리
             if (visited[nxt_y][nxt_x][key]) continue; // 2. 방문한 곳 예외 처리
             
-            if (maze[nxt_y][nxt_x] == '.' || maze[nxt_y][nxt_x] == '1') {
+            if (maze[nxt_y][nxt_x] == '.' || maze[nxt_y][nxt_x] == '1') 
+            {
                 visited[nxt_y][nxt_x][key] = true;
                 q.push({{nxt_y, nxt_x}, {cnt + 1, key}});
-            } else if (maze[nxt_y][nxt_x] >= 'a' && maze[nxt_y][nxt_x] <= 'f') {
+            } 
+            else if (maze[nxt_y][nxt_x] >= 'a' && maze[nxt_y][nxt_x] <= 'f') 
+            {
                 int tmp_key = key | (1 << (int)(maze[nxt_y][nxt_x] - 'a')); // 키 획득
                 visited[nxt_y][nxt_x][tmp_key] = true;
                 q.push({{nxt_y, nxt_x}, {cnt + 1, tmp_key}});
-            } else if (maze[nxt_y][nxt_x] >= 'A' && maze[nxt_y][nxt_x] <= 'F') {
-                if (hasKey(key, maze[nxt_y][nxt_x])) {
+            } 
+            else if (maze[nxt_y][nxt_x] >= 'A' && maze[nxt_y][nxt_x] <= 'F') 
+            {
+                if (hasKey(key, maze[nxt_y][nxt_x])) 
+                {
                     visited[nxt_y][nxt_x][key] = true;
                     q.push({{nxt_y, nxt_x}, {cnt + 1, key}});
                 }
