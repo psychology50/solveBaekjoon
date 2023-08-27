@@ -46,7 +46,7 @@ int visited[MAX], sccLabel[MAX], sccSize[MAX];
 int idx=0, sccCnt=0;
 int compNum = 0;
 int compSize[MAX], minCompSize[MAX], maxCompSize[MAX];
-int adj[MAX];
+vector<int> adj[MAX];
 int cache[MAX][MAX];
 stack<int> s;
 
@@ -55,9 +55,10 @@ void tarjan();
 int makeSSC(int curr);
 void makeDAG();
 int knapsack(int now, int value);
+bool finished[MAX];
 
 int main() {
-    ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+    ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
     init();
     tarjan();
     makeDAG();
@@ -69,7 +70,7 @@ void init() {
 
     for (int i = 0, u; i < n; i++) {
         cin >> u;
-        adj[u-1] = i;
+        adj[u-1].push_back(i);
     }
 
     for (int i=0; i<MAX; i++) memset(cache[i], -1, sizeof(cache[i]));
@@ -84,11 +85,12 @@ void tarjan() {
 
 int makeSSC(int curr) {
     int dfsn = visited[curr] = ++idx; // DFS 탐색 순서를 저장한다.
-    int nxt = adj[curr]; 
     s.push(curr);
 
-    if (!visited[nxt]) dfsn = min(dfsn, makeSSC(nxt)); // 방문하지 않은 노드라면 DFS를 계속 진행한다.
-    else if (!sccLabel[nxt]) dfsn = min(dfsn, visited[nxt]); // 방문은 했지만, 아직 SCC로 묶이지 않은 노드라면 
+    for (int nxt : adj[curr]) {
+        if (!visited[nxt]) dfsn = min(dfsn, makeSSC(nxt)); // 방문하지 않은 노드라면 DFS를 계속 진행한다.
+        else if (sccLabel[nxt] == -1) dfsn = min(dfsn, visited[nxt]); // 방문은 했지만, 아직 SCC로 묶이지 않은 노드라면 
+    }
 
     if (dfsn == visited[curr]) { // DFS 탐색 순서가 현재 노드의 순서와 같다면 SCC를 생성한다.
         while (true) {  
@@ -104,33 +106,34 @@ int makeSSC(int curr) {
 }
 
 void makeDAG() { // Directed Acyclic Graph
-    int graph[MAX], indegree[MAX] = {0,};
+    vector<int> graph[MAX];
+    int indegree[MAX] = {0};
 
     for (int i=0; i<n; i++) {
         int nodeNum = sccLabel[i];
-        int nextNodeNum = sccLabel[adj[i]];
-        
-        if (nodeNum == nextNodeNum) continue;
-
-        graph[nodeNum] = nextNodeNum; // nodeNum -> nextNodeNum
-        indegree[nextNodeNum]++; // nextNodeNum의 indegree 증가
+        for (int adjNode : adj[i]) {
+            int nextNodeNum = sccLabel[adjNode];
+            if (nodeNum == nextNodeNum) continue;
+            graph[nodeNum].push_back(nextNodeNum); // nodeNum -> nextNodeNum
+            indegree[nextNodeNum]++; // nextNodeNum의 indegree 증가
+        }  
     }
 
     queue<int> q;
     for (int i=0; i<sccCnt; i++) if (indegree[i] == 0) {
         q.push(i);
         compSize[i] = ++compNum; // indegree가 0인 노드는 SCC의 최상위 노드이므로, 최소 인원은 1명이다.
-        minCompSize[i] = maxCompSize[i] = sccSize[i]; // SCC의 크기를 저장한다.
+        minCompSize[compNum] = maxCompSize[compNum] = sccSize[i]; // SCC의 크기를 저장한다.
     }
 
     while (!q.empty()) {
         int curr = q.front(); q.pop();
-        int next = graph[curr];
+        for (int nxt : graph[curr]) {
+            compSize[nxt] = compSize[curr]; // nextNodeNum의 최소 인원은 currNodeNum의 최소 인원 + 1이다.
+            maxCompSize[compSize[nxt]] += sccSize[nxt]; // nextNodeNum의 최대 인원은 currNodeNum의 최대 인원 + nextNodeNum의 크기이다.
 
-        compSize[next] = compSize[curr]; // nextNodeNum의 최소 인원은 currNodeNum의 최소 인원 + 1이다.
-        maxCompSize[compSize[next]] += sccSize[next]; // nextNodeNum의 최대 인원은 currNodeNum의 최대 인원 + nextNodeNum의 크기이다.
-
-        if (--indegree[next] == 0) q.push(next);
+            if (--indegree[nxt] == 0) q.push(nxt);
+        }
     }
 }
 
@@ -140,14 +143,16 @@ void makeDAG() { // Directed Acyclic Graph
 //  2. now번째 노드를 데려가는 경우
 //      cache[now][k] = knapsack(now+1, value - sccSize[now]) + sccSize[now]
 int knapsack(int now, int value) {
+    if (now > compNum) return 0; // 더 이상 노드가 없다면 종료한다.
+
     int& ret = cache[now][value];
     if (ret != -1) return ret;
 
     ret = knapsack(now+1, value); // now번째 노드를 데려가지 않는 경우
-    if (value >= sccSize[now]) {
+    if (value >= minCompSize[now]) {
         for (int i=minCompSize[now]; i<=maxCompSize[now]; i++) {
             if (i > value) break;
-            ret = max(ret, knapsack(now+1, value - i) + i);
+            ret = max(ret, knapsack(now+1, value-i) + i);
         }
     }
 

@@ -11,7 +11,7 @@ int main() {
     ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
 
     cin >> n >> m;
-
+        
     vector<int> train(n + 1, 0);
     for (int i = 0; i < m; i++) {
         int cmd; cin >> cmd;
