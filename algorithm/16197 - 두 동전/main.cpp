@@ -47,23 +47,20 @@ int bfs() {
     while (q.size() > 0) {
         tuple<coord, coord, int> coin = q.front(); q.pop();
 
-        if (get<2>(coin) > 10) return -1;
-
         for (pii dydx : dvetor) {
             coord coinA = {get<0>(coin).y + dydx.first, get<0>(coin).x + dydx.second};
             coord coinB = {get<1>(coin).y + dydx.first, get<1>(coin).x + dydx.second};
             int cnt = get<2>(coin) + 1;
 
+            if (cnt > 10) continue;
+
             bool validA = isValid(coinA.y, coinA.x);
             bool validB = isValid(coinB.y, coinB.x);
 
-            // 이미 방문한 경우 -> continue
             if (visited[coinA.y][coinA.x][coinB.y][coinB.x]) continue;
 
-            // 동전 둘 다 떨어지는 경우 -> continue
             if (!validA && !validB) continue;
 
-            // 벽에 부딪힌 경우 각각 갱신
             if (map[coinA.y][coinA.x] == '#') {
                 coinA.y = get<0>(coin).y;
                 coinA.x = get<0>(coin).x;
@@ -73,9 +70,7 @@ int bfs() {
                 coinB.x = get<1>(coin).x;
             }
             
-            // 동전 하나만 떨어지는 경우
             if ((validA && !validB) || (!validA && validB)) {
-                if (get<2>(coin) + 1 > 10) return -1;
                 return cnt;
             }
 

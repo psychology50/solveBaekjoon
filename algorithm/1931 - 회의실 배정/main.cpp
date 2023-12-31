@@ -19,6 +19,10 @@ int main() {
     }
     sort(teams.begin(), teams.end());
 
+    for (int i=0; i<n; ++i) {
+        cout << teams[i].second << " -> " << teams[i].first << "\n";
+    }
+
     int res = 0, lastEndTime = 0;
     for (int i=0; i<n; ++i) {
         int start = teams[i].second, end = teams[i].first; 

@@ -36,9 +36,6 @@ void init() {
 void recur(string num, int digit, int pick) {
     if (pick > n) return;
 
-    // digit == k 자릿수 동일하다면,
-    // return;
-
-    // 
+    
 
 }

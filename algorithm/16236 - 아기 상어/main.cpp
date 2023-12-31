@@ -74,7 +74,6 @@ bool inRange(int y, int x) {
 coord searchFeed() {
     queue<BabyShark> q; q.push(babyShark);
     bool visited[25][25] = {false, };
-    int nxtY = 500, nxtX = 500;
     visited[babyShark.y][babyShark.x] = true;
 
     coord res;

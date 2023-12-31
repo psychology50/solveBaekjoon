@@ -81,11 +81,12 @@ bool cmpParent(int a, int b) {
 ld makeMST() {
     ld answer = 0;
 
-    for (int i=0; i<edges.size(); ++i) {
-        if (cmpParent(edges[i].u, edges[i].v)) continue;
+    for (Edge &edge : edges) {
+        if (cmpParent(edge.u, edge.v)) continue;
 
-        answer += edges[i].w;
-        unionParent(edges[i].u, edges[i].v);
+        answer += edge.w;
+        unionParent(edge.u, edge.v);
     }
+
     return answer;
 }
