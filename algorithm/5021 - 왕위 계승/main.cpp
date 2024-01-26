@@ -15,7 +15,7 @@ vector<vector<string>> f(3);
 int main() {
     ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
     cin >> n >> m >> king;
-    blood[king] = 1LL << 52;;
+    blood[king] = 1LL << 52;
 
     string str;
     for (int i=0; i<n; ++i) {
