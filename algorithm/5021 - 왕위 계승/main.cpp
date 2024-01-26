@@ -25,10 +25,10 @@ int main() {
     }
 
     for (int i=0; i<n; ++i) for (int j=0; j<n; ++j) {
-        blood[f[0][j]] = blood[f[1][j]] * 0.5 + blood[f[2][j]] * 0.5;
+        blood[f[0][j]] = (blood[f[1][j]] + blood[f[2][j]]) * 0.5;
     }
 
-    ll tmp = 1LL << 52;
+    ll tmp = 0;
     string ans;
     for (int i=0; i<m; ++i) {
         cin >> str;
