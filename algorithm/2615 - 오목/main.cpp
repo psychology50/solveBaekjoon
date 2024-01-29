@@ -44,8 +44,7 @@ int main(){
     int ans, ansX, ansY;
     ans = 0;
     ansX = ansY = 99;
-    for(int i = 0; i < 19; i++)
-        for(int j = 0; j < 19; j++) cin >> map[i][j];
+    for(int i = 0; i < 19; i++) for(int j = 0; j < 19; j++) cin >> map[i][j];
 
     for(int i = 0; i < 19; i++) for(int j = 0; j < 19; j++){
         if (map[i][j] == 0) continue;
