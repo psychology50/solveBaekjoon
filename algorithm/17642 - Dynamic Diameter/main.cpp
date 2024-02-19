@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <functional>
 #include <algorithm>
  
 using namespace std;
@@ -119,11 +120,15 @@ void dfs(int u, int p, vi& st, vi& en, vl& W, Seg& S, vi& ord, int& t, ll& dep, 
     ++t;
 
     for(auto& e : adj[u]) {
-        int v, i; tie(v, i) = e;
+        int v, i; 
+        tie(v, i) = e;
+
         if (v == p) continue;
 
         dep += W[i];
-        E[i] = v; dfs(v, u, st, en, W, S, ord, t, dep, E, adj);
+        E[i] = v; 
+        
+        dfs(v, u, st, en, W, S, ord, t, dep, E, adj);
         dep -= W[i];
 
         S.set(t, NODE(dep)); 
