@@ -1,3 +1,8 @@
+/**
+ * 지능 이슈로 인한 문제 풀이 참고...슬프다.
+ * 
+ * @link https://nahwasa.com/entry/%EC%9E%90%EB%B0%94-%EB%B0%B1%EC%A4%80-22949-%ED%9A%8C%EC%A0%84-%EB%AF%B8%EB%A1%9C-%ED%83%90%EC%83%89-java
+ */
 #include <iostream>
 #include <string>
 #include <queue>
