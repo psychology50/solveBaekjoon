@@ -14,7 +14,7 @@ int main() {
     for (int i=0; i<=input.length(); ++i) {
         char& c = input[i];
 
-        if (c == '+' || c == '-') {
+        if (c == '+' || c == '-' || i==input.length()) {
             if (minus) {
                 ret -= stoi(tmp); tmp = "";
             } else {
