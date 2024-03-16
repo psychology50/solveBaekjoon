@@ -1,5 +1,4 @@
-package boj.silver18870;
-
+// @author 21911407 양재서
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.*;
